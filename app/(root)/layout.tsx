@@ -4,8 +4,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-        SIDEBAR
+    <main className="">
+        <p className="">SIDEBAR</p>
         {children}
     </main>)
 }
