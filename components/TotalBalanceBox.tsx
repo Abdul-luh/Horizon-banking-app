@@ -7,8 +7,8 @@ import DoughnutChart from "./DoughnutChart";
 
 export default function TotalBalanceBox({
   acccounts = [],
-  totalBanks,:
-  totalCurrentBalance, chart
+  totalBanks,
+  totalCurrentBalance,
 }: TotlaBalanceBoxProps) {
   return (
     <section className="total-balance">

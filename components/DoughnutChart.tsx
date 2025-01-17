@@ -9,10 +9,23 @@ export default function DoughnutChart({ acccounts }: DoughnutChartProps) {
     datasets: [
       {
         label: "banks",
-        data: [1289, 98198, 598790],
+        data: [39089, 98198, 59870],
+        backgroundColor: ["#0747b6", "#2265d8", "#2f91fa"],
       },
     ],
     labels: ["bank 1", "bank 2", "bank 3"],
   };
-  return <Doughnut data={data} />;
+  return (
+    <Doughnut
+      data={data}
+      options={{
+        cutout: "60%",
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+      }}
+    />
+  );
 }
