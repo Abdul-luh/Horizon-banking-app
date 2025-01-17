@@ -3,7 +3,7 @@ import CountUp from "react-countup";
 
 export default function AnimatedCounter({ amount }: { amount: number }) {
   return (
-    <div>
+    <div className="w-full">
       <CountUp
         end={amount}
         decimal=","

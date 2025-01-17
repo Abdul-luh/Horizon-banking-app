@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "horizon-banking-app",
+			"path": "."
+		},
+		{
+			"name": "assets",
+			"path": "../../../Downloads/assets_banking/assets"
+		}
+	],
+	"settings": {}
+}

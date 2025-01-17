@@ -3,23 +3,26 @@ import { formatAmount } from "@/lib/utils";
 import React from "react";
 import CountUp from "react-countup";
 import AnimatedCounter from "./AnimatedCounter";
+import DoughnutChart from "./DoughnutChart";
 
 export default function TotalBalanceBox({
   acccounts = [],
-  totalBanks,
-  totalCurrentBalance,
+  totalBanks,:
+  totalCurrentBalance, chart
 }: TotlaBalanceBoxProps) {
   return (
     <section className="total-balance">
-      <div className="total-balance-chart">{/* DOUGHNUT CHART  */}</div>
+      <div className="total-balance-chart">
+        <DoughnutChart accounts={acccounts} />
+      </div>
 
       <div className="flex flex-col gap-6 capitalize">
         <h2>Banks accounts: {totalBanks}</h2>
         <div className="flex flex-col gap-2">
           <p className="total-balance-label ">total Balance</p>
-          <p className="total-balance-amount flex-center gap-2">
+          <div className="total-balance-amount flex-center gap-2">
             <AnimatedCounter amount={totalCurrentBalance} />
-          </p>
+          </div>
         </div>
       </div>
     </section>
