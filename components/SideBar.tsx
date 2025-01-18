@@ -14,7 +14,7 @@ export default function SideBar({ user }: SiderbarProps) {
           className="mb-12 flex cursor-pointer items-center gap-2"
         >
           <Image
-            className="size-[24px]"
+            className="size-[24px] max-xl:size-14"
             src={"/icons/logo.svg"}
             alt="Horizon  logo"
             width={40}
