@@ -5,7 +5,11 @@ import TotalBalanceBox from "@/components/TotalBalanceBox";
 import React from "react";
 
 export default function page() {
-  const LoggedIn = { firstName: "Abdullah", lastName: "odulate" };
+  const LoggedIn = {
+    firstName: "Abdullah",
+    lastName: "odulate",
+    email: "abdulluhdodulate@gmail.com",
+  };
   return (
     <section className="home">
       <header className="home-content">
@@ -22,7 +26,11 @@ export default function page() {
         />
         RECENT TRANSACTION
       </header>
-      <RightSideBar user={LoggedIn} transactions={[]} banks={[]} />
+      <RightSideBar
+        user={LoggedIn}
+        transactions={[]}
+        banks={[{}, { smth: "" }]}
+      />
     </section>
   );
 }
