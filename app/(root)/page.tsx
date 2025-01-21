@@ -29,7 +29,7 @@ export default function page() {
       <RightSideBar
         user={LoggedIn}
         transactions={[]}
-        banks={[{}, { smth: "" }]}
+        banks={[{ currentBalance: 1238095 }, { currentBalance: 708095 }]}
       />
     </section>
   );
