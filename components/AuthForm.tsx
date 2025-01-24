@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,19 +16,19 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import CustomInput from "./CustomInput";
 export default function AuthForm({ type }: AuthFormProps) {
   const [user, setUser] = useState(null);
   const formSchema = z.object({
-    username: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
-    }),
+    email: z.string().email(),
   });
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      email: "",
+      password: "",
     },
   });
 
@@ -74,19 +74,29 @@ export default function AuthForm({ type }: AuthFormProps) {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <FormField
                 control={form.control}
-                name="username"
+                name="email"
                 render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="shadcn" {...field} />
-                    </FormControl>
-                    <FormDescription>
-                      This is your public display name.
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
+                  <div className="form-item">
+                    <FormLabel className="form-label">Email</FormLabel>
+                    <div className="flex flex-col w-full">
+                      <FormControl>
+                        <Input
+                          placeholder="enter your email"
+                          className="input-class"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage className="form-message mt-2"></FormMessage>
+                    </div>
+                  </div>
                 )}
+              />
+
+              <CustomInput
+                name="password"
+                label="Password"
+                form={form}
+                placeholder={"Enter your password"}
               />
               <Button type="submit">Submit</Button>
             </form>
