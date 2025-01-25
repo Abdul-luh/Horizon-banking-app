@@ -1,36 +1,29 @@
 "use client";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./ui/form";
+import { FormControl, FormField, FormLabel, FormMessage } from "./ui/form";
 import { Input } from "./ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { FieldName } from "react-hook-form";
+import { Control } from "react-hook-form";
+import { formSchema } from "@/lib/utils";
 
 interface CustomInputProps {
-  form: UseFormReturn<
-    {
-      email: string;
-    },
-    any,
-    undefined
-  >;
-  name: string;
+  control: Control<z.infer<typeof formSchema>>;
+  name: FieldName<z.infer<typeof formSchema>>;
   label: string;
   placeholder: string;
   type?: string;
 }
 
-export default function CustomInput({ form, name, label, placeholder, type }) {
-  console.log(form);
+export default function CustomInput({
+  control,
+  name,
+  label,
+  placeholder,
+  type,
+}: CustomInputProps) {
   return (
     <FormField
-      control={form.control}
+      control={control}
       name={name}
       render={({ field }) => (
         <div className="form-item">
@@ -41,7 +34,7 @@ export default function CustomInput({ form, name, label, placeholder, type }) {
                 placeholder={placeholder}
                 className="input-class"
                 {...field}
-                type={type ? type : "text"}
+                type={type === "password" ? "password" : "text"}
               />
             </FormControl>
             <FormMessage className="form-message mt-2"></FormMessage>
