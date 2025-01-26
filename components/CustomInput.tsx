@@ -4,8 +4,9 @@ import { Input } from "./ui/input";
 import { z } from "zod";
 import { FieldName } from "react-hook-form";
 import { Control } from "react-hook-form";
-import { formSchema } from "@/lib/utils";
+import { formSchema as authformSchma } from "@/lib/utils";
 
+const formSchema = authformSchma("sign-in");
 interface CustomInputProps {
   control: Control<z.infer<typeof formSchema>>;
   name: FieldName<z.infer<typeof formSchema>>;

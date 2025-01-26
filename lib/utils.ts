@@ -195,17 +195,38 @@ export const getTransactionStatus = (date: Date) => {
   return date > twoDaysAgo ? "Processing" : "Success";
 };
 
-export const formSchema = z.object({
-  // BOTH
-  email: z.string().email(),
-  password: z.string().min(4, { message: "Password must not be less that 4" }),
+export const formSchema = (type: "sign-up" | "sign-in") =>
+  z.object({
+    // BOTH
+    email: z.string().email(),
+    password: z
+      .string()
+      .min(4, { message: "Password must not be less that 4" }),
 
-  // SIGNUP
-  firstName: z.string().min(3, { message: "must be over 3 characters" }),
-  lastName: z.string().min(3, { message: "must be over 3 characters" }),
-  address1: z.string().min(3, { message: "must be over 3 characters" }),
-  state: z.string().min(3, { message: "must be over 3 characters" }),
-  postalCode: z.string().min(3, { message: "must be over 3 characters" }),
-  dateOfBirth: z.string().min(3, { message: "must be over 3 characters" }),
-  ssn: z.string().min(3, { message: "must be over 3 characters" }),
-});
+    // SIGNUP
+    firstName:
+      type === "sign-in"
+        ? z.string().optional()
+        : z.string().min(3, { message: "must be over 3 characters" }),
+    lastName:
+      type === "sign-in"
+        ? z.string().optional()
+        : z.string().min(3, { message: "must be over 3 characters" }),
+    address1:
+      type === "sign-in"
+        ? z.string().optional()
+        : z.string().min(3, { message: "must be over 3 characters" }).max(50),
+    state:
+      type === "sign-in"
+        ? z.string().optional()
+        : z.string().min(2, { message: "must be over 3 characters" }).max(2),
+    postalCode:
+      type === "sign-in"
+        ? z.string().optional()
+        : z.string().min(3, { message: "must be over 3 characters" }).max(6),
+    dateOfBirth: type === "sign-in" ? z.string().optional() : z.string(),
+    ssn:
+      type === "sign-in"
+        ? z.string().optional()
+        : z.string().min(4, { message: "must be over 3 characters" }),
+  });

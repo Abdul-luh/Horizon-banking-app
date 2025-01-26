@@ -15,9 +15,11 @@ export default function AuthForm({ type }: AuthFormProps) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsloading] = useState(false);
 
+  const formSchema = authFormSchema(type);
+
   // 1. DEFINE YOUR FORM.
-  const form = useForm<z.infer<typeof authFormSchema>>({
-    resolver: zodResolver(authFormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -25,7 +27,7 @@ export default function AuthForm({ type }: AuthFormProps) {
   });
 
   // 2. DEFINE A SUBMITION HANDLER.
-  function onSubmit(values: z.infer<typeof authFormSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     setIsloading(true);
@@ -68,19 +70,20 @@ export default function AuthForm({ type }: AuthFormProps) {
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               {type === "sign-up" && (
                 <>
-                  <div></div>
-                  <CustomInput
-                    name="firstName"
-                    label="First Name"
-                    control={form.control}
-                    placeholder={"Enter your First Name"}
-                  />
-                  <CustomInput
-                    name="lastName"
-                    label="last Name"
-                    control={form.control}
-                    placeholder={"Enter your last Name"}
-                  />
+                  <div className="flex gap-4">
+                    <CustomInput
+                      name="firstName"
+                      label="First Name"
+                      control={form.control}
+                      placeholder={"Enter your First Name"}
+                    />
+                    <CustomInput
+                      name="lastName"
+                      label="last Name"
+                      control={form.control}
+                      placeholder={"Enter your last Name"}
+                    />
+                  </div>
                   <CustomInput
                     name="address1"
                     label="address"
@@ -89,16 +92,17 @@ export default function AuthForm({ type }: AuthFormProps) {
                   />
                   <CustomInput
                     name="state"
-                    label="state"
+                    label="State"
                     control={form.control}
-                    placeholder={"ex: NY"}
+                    placeholder={"example: NY"}
                   />
                   <CustomInput
                     name="postalCode"
                     label="Postal Code"
                     control={form.control}
-                    placeholder={"ex: 1101"}
+                    placeholder={"example: 1101"}
                   />
+                  <div className="flex gap-4"></div>
                   <CustomInput
                     name="dateOfBirth"
                     label="Date of Birth"
@@ -109,7 +113,7 @@ export default function AuthForm({ type }: AuthFormProps) {
                     name="ssn"
                     label="SSN"
                     control={form.control}
-                    placeholder={"ex: 1234"}
+                    placeholder={"example: 1234"}
                   />
                 </>
               )}
