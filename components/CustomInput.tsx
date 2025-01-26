@@ -6,6 +6,7 @@ import { FieldName } from "react-hook-form";
 import { Control } from "react-hook-form";
 import { formSchema as authformSchma } from "@/lib/utils";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const formSchema = authformSchma("sign-in");
 interface CustomInputProps {
   control: Control<z.infer<typeof formSchema>>;
@@ -28,7 +29,7 @@ export default function CustomInput({
       name={name}
       render={({ field }) => (
         <div className="form-item">
-          <FormLabel className="form-label">{label}</FormLabel>
+          <FormLabel className="form-label capitalize">{label}</FormLabel>
           <div className="flex flex-col w-full">
             <FormControl>
               <Input

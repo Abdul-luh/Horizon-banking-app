@@ -216,6 +216,10 @@ export const formSchema = (type: "sign-up" | "sign-in") =>
       type === "sign-in"
         ? z.string().optional()
         : z.string().min(3, { message: "must be over 3 characters" }).max(50),
+    city:
+      type === "sign-in"
+        ? z.string().optional()
+        : z.string().min(3, { message: "must be over 3 characters" }).max(50),
     state:
       type === "sign-in"
         ? z.string().optional()

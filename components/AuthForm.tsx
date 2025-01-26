@@ -10,8 +10,11 @@ import { Form } from "@/components/ui/form";
 import CustomInput from "./CustomInput";
 import { formSchema as authFormSchema } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { signIn, signUp } from "@/lib/actions/user.actions";
 
 export default function AuthForm({ type }: AuthFormProps) {
+  const router = useRouter();
   const [user, setUser] = useState(null);
   const [isLoading, setIsloading] = useState(false);
 
@@ -27,12 +30,27 @@ export default function AuthForm({ type }: AuthFormProps) {
   });
 
   // 2. DEFINE A SUBMITION HANDLER.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    setIsloading(true);
-    console.log(values);
-    setIsloading(false);
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log(data);
+    try {
+      setIsloading(true);
+      // SIGNIN WITH APP WRITE AND CREATE A PLAID LINK TOKEN
+      if (type === "sign-up") {
+        const newUser = await signUp(data);
+        setUser(newUser);
+      }
+      if (type === "sign-in") {
+        const response = await signIn({
+          email: data.email,
+          password: data.password,
+        });
+        if (response) router.push();
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsloading(false);
+    }
   }
 
   return (
@@ -91,30 +109,39 @@ export default function AuthForm({ type }: AuthFormProps) {
                     placeholder={"Enter your specific address"}
                   />
                   <CustomInput
-                    name="state"
-                    label="State"
+                    name="city"
+                    label="City"
                     control={form.control}
-                    placeholder={"example: NY"}
+                    placeholder={"Enter your specific city"}
                   />
-                  <CustomInput
-                    name="postalCode"
-                    label="Postal Code"
-                    control={form.control}
-                    placeholder={"example: 1101"}
-                  />
-                  <div className="flex gap-4"></div>
-                  <CustomInput
-                    name="dateOfBirth"
-                    label="Date of Birth"
-                    control={form.control}
-                    placeholder={"YYYY-MM-DD"}
-                  />
-                  <CustomInput
-                    name="ssn"
-                    label="SSN"
-                    control={form.control}
-                    placeholder={"example: 1234"}
-                  />
+                  <div className="flex gap-4">
+                    <CustomInput
+                      name="state"
+                      label="State"
+                      control={form.control}
+                      placeholder={"example: NY"}
+                    />
+                    <CustomInput
+                      name="postalCode"
+                      label="Postal Code"
+                      control={form.control}
+                      placeholder={"example: 1101"}
+                    />
+                  </div>
+                  <div className="flex gap-4">
+                    <CustomInput
+                      name="dateOfBirth"
+                      label="Date of Birth"
+                      control={form.control}
+                      placeholder={"YYYY-MM-DD"}
+                    />
+                    <CustomInput
+                      name="ssn"
+                      label="SSN"
+                      control={form.control}
+                      placeholder={"example: 1234"}
+                    />
+                  </div>
                 </>
               )}
               <CustomInput
