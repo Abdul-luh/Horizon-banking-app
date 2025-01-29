@@ -5,8 +5,10 @@ import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
 import { parseStringify } from "../utils";
 
-export async function signIn() {
+export async function signIn(userData: signInProps) {
   try {
+    const { email, password } = userData;
+    console.log(email, password);
     // Mutations / Database /Make fetch
   } catch (error) {
     console.log(error);
